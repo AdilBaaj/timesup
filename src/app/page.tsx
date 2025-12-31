@@ -232,57 +232,57 @@ export default function HomePage() {
 
   if (!state.isPlaying) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-purple-50 via-pink-50 to-blue-50 p-6">
+      <div className="min-h-screen bg-linear-to-br from-purple-50 via-pink-50 to-blue-50 p-4 md:p-6">
         <div className="container mx-auto max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-8"
+            className="text-center mb-6 md:mb-8"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-black mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold text-black mb-2">
               Time&apos;s Up!
             </h1>
-            <p className="text-lg text-black">
+            <p className="text-base md:text-lg text-black">
               Ajoutez des mots et commencez la partie !
             </p>
           </motion.div>
 
           <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-2">
-            <CardHeader>
-              <CardTitle className="text-2xl text-black">Définir les mots</CardTitle>
+            <CardHeader className="pb-2 md:pb-6">
+              <CardTitle className="text-xl md:text-2xl text-black">Définir les mots</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <form onSubmit={handleAddWord} className="flex gap-2">
+            <CardContent className="space-y-4 md:space-y-6">
+              <form onSubmit={handleAddWord} className="flex flex-col sm:flex-row gap-2">
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Entrez un mot ou un nom..."
-                  className="flex-1 text-lg text-black"
+                  placeholder="Entrez un mot..."
+                  className="flex-1 text-base md:text-lg text-black h-12"
                   autoFocus
                 />
-                <Button type="submit" size="lg" className="gap-2">
+                <Button type="submit" size="lg" className="gap-2 h-12 w-full sm:w-auto">
                   <Plus className="w-5 h-5" />
                   Ajouter
                 </Button>
               </form>
 
               {/* Timer duration selector */}
-              <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg border border-purple-200">
+              <div className="flex items-center justify-between p-3 md:p-4 bg-purple-50 rounded-lg border border-purple-200">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-purple-600" />
-                  <span className="font-medium text-black">Durée du timer</span>
+                  <Clock className="w-5 h-5 text-purple-600 shrink-0" />
+                  <span className="font-medium text-black text-sm md:text-base">Timer</span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3">
                   <Button
                     variant="outline"
                     size="icon-sm"
                     onClick={() => dispatch({ type: "SET_TIMER_DURATION", duration: Math.max(10, state.timerDuration - 10) })}
                     disabled={state.timerDuration <= 10}
-                    className="h-8 w-8"
+                    className="h-10 w-10 md:h-8 md:w-8"
                   >
-                    <Minus className="w-4 h-4 text-black" />
+                    <Minus className="w-5 h-5 md:w-4 md:h-4 text-black" />
                   </Button>
-                  <span className="text-2xl font-bold text-purple-600 min-w-[80px] text-center">
+                  <span className="text-xl md:text-2xl font-bold text-purple-600 min-w-[60px] md:min-w-[80px] text-center">
                     {state.timerDuration}s
                   </span>
                   <Button
@@ -290,48 +290,48 @@ export default function HomePage() {
                     size="icon-sm"
                     onClick={() => dispatch({ type: "SET_TIMER_DURATION", duration: Math.min(180, state.timerDuration + 10) })}
                     disabled={state.timerDuration >= 180}
-                    className="h-8 w-8"
+                    className="h-10 w-10 md:h-8 md:w-8"
                   >
-                    <Plus className="w-4 h-4 text-black" />
+                    <Plus className="w-5 h-5 md:w-4 md:h-4 text-black" />
                   </Button>
                 </div>
               </div>
 
               {/* Team scores */}
               {foundWords.length > 0 && (
-                <div className="space-y-3">
+                <div className="space-y-2 md:space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Users className="w-5 h-5 text-purple-600" />
-                      <span className="font-medium text-black">Scores</span>
+                      <Users className="w-4 h-4 md:w-5 md:h-5 text-purple-600" />
+                      <span className="font-medium text-black text-sm md:text-base">Scores</span>
                     </div>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => dispatch({ type: "RESET_SCORES" })}
-                      className="gap-2 text-black"
+                      className="gap-1 md:gap-2 text-black text-xs md:text-sm h-9"
                     >
-                      <RefreshCw className="w-4 h-4 text-black" />
-                      Reset scores
+                      <RefreshCw className="w-3.5 h-3.5 md:w-4 md:h-4 text-black" />
+                      Reset
                     </Button>
                   </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <span className="font-semibold text-blue-700">Équipe A</span>
-                      <p className="text-2xl font-bold text-blue-700">{teamAWords.length} pts</p>
+                  <div className="grid grid-cols-2 gap-2 md:gap-3">
+                    <div className="p-2 md:p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <span className="font-semibold text-blue-700 text-sm md:text-base">Équipe A</span>
+                      <p className="text-xl md:text-2xl font-bold text-blue-700">{teamAWords.length} pts</p>
                     </div>
-                    <div className="p-3 bg-orange-50 rounded-lg border border-orange-200">
-                      <span className="font-semibold text-orange-700">Équipe B</span>
-                      <p className="text-2xl font-bold text-orange-700">{teamBWords.length} pts</p>
+                    <div className="p-2 md:p-3 bg-orange-50 rounded-lg border border-orange-200">
+                      <span className="font-semibold text-orange-700 text-sm md:text-base">Équipe B</span>
+                      <p className="text-xl md:text-2xl font-bold text-orange-700">{teamBWords.length} pts</p>
                     </div>
                   </div>
                 </div>
               )}
 
               {state.words.length > 0 && (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-black">
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <h3 className="font-semibold text-black text-sm md:text-base">
                       Mots ({remainingWords.length} restants / {state.words.length} total)
                     </h3>
                     <div className="flex gap-2">
@@ -340,9 +340,9 @@ export default function HomePage() {
                           variant="outline"
                           size="sm"
                           onClick={() => dispatch({ type: "RESET_STATUS" })}
-                          className="gap-2 text-black"
+                          className="gap-1 md:gap-2 text-black text-xs md:text-sm h-9"
                         >
-                          <RefreshCw className="w-4 h-4 text-black" />
+                          <RefreshCw className="w-3.5 h-3.5 md:w-4 md:h-4 text-black" />
                           Reset
                         </Button>
                       )}
@@ -350,14 +350,14 @@ export default function HomePage() {
                         variant="outline"
                         size="sm"
                         onClick={() => dispatch({ type: "CLEAR_ALL" })}
-                        className="gap-2 text-red-600 border-red-300 hover:bg-red-100 hover:text-red-600"
+                        className="gap-1 md:gap-2 text-red-600 border-red-300 hover:bg-red-100 hover:text-red-600 text-xs md:text-sm h-9"
                       >
-                        <Trash2 className="w-4 h-4 text-red-600" />
-                        Tout supprimer
+                        <Trash2 className="w-3.5 h-3.5 md:w-4 md:h-4 text-red-600" />
+                        Supprimer tout
                       </Button>
                     </div>
                   </div>
-                  <div className="grid gap-2 max-h-96 overflow-y-auto">
+                  <div className="grid gap-2 max-h-64 md:max-h-96 overflow-y-auto">
                     <AnimatePresence>
                       {state.words.map((word, index) => (
                         <motion.div
@@ -418,7 +418,7 @@ export default function HomePage() {
                   <Button
                     size="lg"
                     onClick={() => dispatch({ type: "START_GAME" })}
-                    className="w-full bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-lg py-6"
+                    className="w-full bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base md:text-lg py-5 md:py-6"
                   >
                     Commencer le jeu
                   </Button>
