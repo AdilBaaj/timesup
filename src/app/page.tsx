@@ -506,41 +506,41 @@ export default function HomePage() {
         </div>
 
         {/* Team scores and current team */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className={`p-4 rounded-lg border-2 ${state.currentTeam === "A" ? "bg-blue-100 border-blue-500" : "bg-blue-50 border-blue-200"}`}>
-            <div className="flex items-center justify-between">
-              <span className={`font-bold text-lg ${state.currentTeam === "A" ? "text-blue-700" : "text-blue-600"}`}>Équipe A</span>
+        <div className="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-6">
+          <div className={`p-3 md:p-4 rounded-lg border-2 ${state.currentTeam === "A" ? "bg-blue-100 border-blue-500" : "bg-blue-50 border-blue-200"}`}>
+            <div className="flex items-center justify-between mb-1">
+              <span className={`font-bold text-sm md:text-lg ${state.currentTeam === "A" ? "text-blue-700" : "text-blue-600"}`}>Équipe A</span>
               <div className="flex gap-1">
-                {teamAWords.length > teamBWords.length && <span className="text-xs bg-green-500 text-white px-2 py-1 rounded-full">Mène</span>}
-                {state.currentTeam === "A" && <span className="text-xs bg-blue-500 text-white px-2 py-1 rounded-full">Tour</span>}
+                {teamAWords.length > teamBWords.length && <span className="text-[10px] md:text-xs bg-green-500 text-white px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">Mène</span>}
+                {state.currentTeam === "A" && <span className="text-[10px] md:text-xs bg-blue-500 text-white px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">Tour</span>}
               </div>
             </div>
-            <p className="text-3xl font-bold text-blue-700">{teamAWords.length} pts</p>
+            <p className="text-2xl md:text-3xl font-bold text-blue-700">{teamAWords.length} pts</p>
           </div>
-          <div className={`p-4 rounded-lg border-2 ${state.currentTeam === "B" ? "bg-orange-100 border-orange-500" : "bg-orange-50 border-orange-200"}`}>
-            <div className="flex items-center justify-between">
-              <span className={`font-bold text-lg ${state.currentTeam === "B" ? "text-orange-700" : "text-orange-600"}`}>Équipe B</span>
+          <div className={`p-3 md:p-4 rounded-lg border-2 ${state.currentTeam === "B" ? "bg-orange-100 border-orange-500" : "bg-orange-50 border-orange-200"}`}>
+            <div className="flex items-center justify-between mb-1">
+              <span className={`font-bold text-sm md:text-lg ${state.currentTeam === "B" ? "text-orange-700" : "text-orange-600"}`}>Équipe B</span>
               <div className="flex gap-1">
-                {teamBWords.length > teamAWords.length && <span className="text-xs bg-green-500 text-white px-2 py-1 rounded-full">Mène</span>}
-                {state.currentTeam === "B" && <span className="text-xs bg-orange-500 text-white px-2 py-1 rounded-full">Tour</span>}
+                {teamBWords.length > teamAWords.length && <span className="text-[10px] md:text-xs bg-green-500 text-white px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">Mène</span>}
+                {state.currentTeam === "B" && <span className="text-[10px] md:text-xs bg-orange-500 text-white px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">Tour</span>}
               </div>
             </div>
-            <p className="text-3xl font-bold text-orange-700">{teamBWords.length} pts</p>
+            <p className="text-2xl md:text-3xl font-bold text-orange-700">{teamBWords.length} pts</p>
           </div>
         </div>
 
         {/* Roulette */}
-        <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-2 mb-6">
-          <CardContent className="p-8">
-            <div className="text-center space-y-6">
+        <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-2 mb-4 md:mb-6">
+          <CardContent className="p-4 md:p-8">
+            <div className="text-center space-y-4 md:space-y-6">
               {/* Wheel visualization */}
-              <div className="relative mx-auto w-full max-w-md aspect-square">
+              <div className="relative mx-auto w-full max-w-xs md:max-w-md aspect-square">
                 <motion.div
                   animate={state.isSpinning ? { rotate: 360 * 5 } : {}}
                   transition={state.isSpinning ? { duration: 2, ease: "easeOut" } : {}}
                   className="absolute inset-0 rounded-full bg-linear-to-br from-purple-500 via-pink-500 to-blue-500 shadow-2xl flex items-center justify-center"
                 >
-                  <div className="bg-white rounded-full w-[85%] h-[85%] flex items-center justify-center p-8">
+                  <div className="bg-white rounded-full w-[85%] h-[85%] flex items-center justify-center p-4 md:p-8">
                     <AnimatePresence mode="wait">
                       {state.currentWord ? (
                         <motion.p
@@ -548,7 +548,7 @@ export default function HomePage() {
                           initial={{ opacity: 0, scale: 0.5 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.5 }}
-                          className="text-3xl md:text-5xl font-bold text-black text-center wrap-break-word"
+                          className="text-2xl md:text-5xl font-bold text-black text-center wrap-break-word"
                         >
                           {state.currentWord}
                         </motion.p>
@@ -558,7 +558,7 @@ export default function HomePage() {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          className="text-2xl text-black"
+                          className="text-xl md:text-2xl text-black"
                         >
                           ...
                         </motion.p>
@@ -568,7 +568,7 @@ export default function HomePage() {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          className="text-xl text-black"
+                          className="text-base md:text-xl text-black"
                         >
                           Tournez la roulette !
                         </motion.p>
@@ -578,8 +578,8 @@ export default function HomePage() {
                 </motion.div>
 
                 {/* Pointer */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4">
-                  <div className="w-8 h-8 bg-red-500 rounded-full shadow-lg border-4 border-white" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 md:-translate-y-4">
+                  <div className="w-6 h-6 md:w-8 md:h-8 bg-red-500 rounded-full shadow-lg border-2 md:border-4 border-white" />
                 </div>
               </div>
 
@@ -588,20 +588,20 @@ export default function HomePage() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="space-y-3"
+                  className="space-y-2 md:space-y-3"
                 >
                   <div className="text-center">
                     <motion.p
                       animate={state.timeLeft <= 10 ? { scale: [1, 1.1, 1] } : {}}
                       transition={{ repeat: Infinity, duration: 0.8 }}
-                      className={`text-6xl font-bold ${
+                      className={`text-5xl md:text-6xl font-bold ${
                         state.timeLeft <= 10 ? "text-red-600" : "text-black"
                       }`}
                     >
                       {state.timeLeft}s
                     </motion.p>
                   </div>
-                  <div className="w-full bg-zinc-200 rounded-full h-4 overflow-hidden">
+                  <div className="w-full bg-zinc-200 rounded-full h-3 md:h-4 overflow-hidden">
                     <motion.div
                       initial={{ width: "100%" }}
                       animate={{ width: `${(state.timeLeft / state.timerDuration) * 100}%` }}
@@ -617,13 +617,13 @@ export default function HomePage() {
               )}
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center">
                 {!state.currentWord && !state.isSpinning && (
                   <Button
                     size="lg"
                     onClick={handleSpin}
                     disabled={remainingWords.length === 0}
-                    className="bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white gap-2 text-lg py-6"
+                    className="bg-linear-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white gap-2 text-base md:text-lg py-5 md:py-6"
                   >
                     <RotateCw className="w-5 h-5" />
                     Tourner la roulette
@@ -635,7 +635,7 @@ export default function HomePage() {
                     <Button
                       size="lg"
                       onClick={() => dispatch({ type: "WORD_FOUND" })}
-                      className="bg-green-600 hover:bg-green-700 text-white gap-2 flex-1"
+                      className="bg-green-600 hover:bg-green-700 text-white gap-2 flex-1 py-4 md:py-6 text-base md:text-lg"
                     >
                       <CheckCircle className="w-5 h-5" />
                       Trouvé !
@@ -644,7 +644,7 @@ export default function HomePage() {
                       size="lg"
                       variant="outline"
                       onClick={() => dispatch({ type: "SKIP_WORD" })}
-                      className="gap-2 flex-1 text-black"
+                      className="gap-2 flex-1 text-black py-4 md:py-6 text-base md:text-lg"
                     >
                       <SkipForward className="w-5 h-5 text-black" />
                       Passer
@@ -658,10 +658,10 @@ export default function HomePage() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-red-100 border-2 border-red-300 rounded-lg p-4"
+                  className="bg-red-100 border-2 border-red-300 rounded-lg p-3 md:p-4"
                 >
-                  <p className="text-red-700 font-bold text-xl">Temps écoulé !</p>
-                  <p className="text-red-600 text-sm">Passez au mot suivant ou marquez-le comme trouvé</p>
+                  <p className="text-red-700 font-bold text-lg md:text-xl">Temps écoulé !</p>
+                  <p className="text-red-600 text-xs md:text-sm">Passez au mot suivant ou marquez-le comme trouvé</p>
                 </motion.div>
               )}
             </div>
