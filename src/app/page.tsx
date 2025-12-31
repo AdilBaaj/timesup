@@ -40,6 +40,7 @@ type GameAction =
   | { type: "TIME_UP" }
   | { type: "RESET_STATUS" }
   | { type: "RESET_SCORES" }
+  | { type: "CLEAR_ALL" }
   | { type: "BACK_TO_SETUP" }
   | { type: "SET_TIMER_DURATION"; duration: number }
   | { type: "LOAD_TIMER_DURATION"; duration: number };
@@ -109,6 +110,18 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         ...state,
         words: state.words.map(w => ({ ...w, done: false, foundByTeam: undefined })),
         currentTeam: "A",
+      };
+
+    case "CLEAR_ALL":
+      return {
+        ...state,
+        words: [],
+        currentWord: null,
+        currentTeam: "A",
+        isPlaying: false,
+        isSpinning: false,
+        timeLeft: state.timerDuration,
+        timerActive: false,
       };
 
     case "BACK_TO_SETUP":
@@ -321,17 +334,28 @@ export default function HomePage() {
                     <h3 className="font-semibold text-black">
                       Mots ({remainingWords.length} restants / {state.words.length} total)
                     </h3>
-                    {foundWords.length > 0 && (
+                    <div className="flex gap-2">
+                      {foundWords.length > 0 && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => dispatch({ type: "RESET_STATUS" })}
+                          className="gap-2 text-black"
+                        >
+                          <RefreshCw className="w-4 h-4 text-black" />
+                          Reset
+                        </Button>
+                      )}
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => dispatch({ type: "RESET_STATUS" })}
-                        className="gap-2 text-black"
+                        onClick={() => dispatch({ type: "CLEAR_ALL" })}
+                        className="gap-2 text-red-600 border-red-300 hover:bg-red-100 hover:text-red-600"
                       >
-                        <RefreshCw className="w-4 h-4 text-black" />
-                        Tout reset
+                        <Trash2 className="w-4 h-4 text-red-600" />
+                        Tout supprimer
                       </Button>
-                    )}
+                    </div>
                   </div>
                   <div className="grid gap-2 max-h-96 overflow-y-auto">
                     <AnimatePresence>
@@ -451,9 +475,9 @@ export default function HomePage() {
               size="lg"
               variant="outline"
               onClick={() => dispatch({ type: "BACK_TO_SETUP" })}
-              className="gap-2"
+              className="gap-2 text-black"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-5 h-5 text-black" />
               Retour
             </Button>
           </div>
@@ -470,9 +494,9 @@ export default function HomePage() {
           <Button
             variant="outline"
             onClick={() => dispatch({ type: "BACK_TO_SETUP" })}
-            className="gap-2"
+            className="gap-2 text-black"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 text-black" />
             Retour
           </Button>
           <div className="text-center">
@@ -486,14 +510,20 @@ export default function HomePage() {
           <div className={`p-4 rounded-lg border-2 ${state.currentTeam === "A" ? "bg-blue-100 border-blue-500" : "bg-blue-50 border-blue-200"}`}>
             <div className="flex items-center justify-between">
               <span className={`font-bold text-lg ${state.currentTeam === "A" ? "text-blue-700" : "text-blue-600"}`}>Équipe A</span>
-              {state.currentTeam === "A" && <span className="text-xs bg-blue-500 text-white px-2 py-1 rounded-full">Tour</span>}
+              <div className="flex gap-1">
+                {teamAWords.length > teamBWords.length && <span className="text-xs bg-green-500 text-white px-2 py-1 rounded-full">Mène</span>}
+                {state.currentTeam === "A" && <span className="text-xs bg-blue-500 text-white px-2 py-1 rounded-full">Tour</span>}
+              </div>
             </div>
             <p className="text-3xl font-bold text-blue-700">{teamAWords.length} pts</p>
           </div>
           <div className={`p-4 rounded-lg border-2 ${state.currentTeam === "B" ? "bg-orange-100 border-orange-500" : "bg-orange-50 border-orange-200"}`}>
             <div className="flex items-center justify-between">
               <span className={`font-bold text-lg ${state.currentTeam === "B" ? "text-orange-700" : "text-orange-600"}`}>Équipe B</span>
-              {state.currentTeam === "B" && <span className="text-xs bg-orange-500 text-white px-2 py-1 rounded-full">Tour</span>}
+              <div className="flex gap-1">
+                {teamBWords.length > teamAWords.length && <span className="text-xs bg-green-500 text-white px-2 py-1 rounded-full">Mène</span>}
+                {state.currentTeam === "B" && <span className="text-xs bg-orange-500 text-white px-2 py-1 rounded-full">Tour</span>}
+              </div>
             </div>
             <p className="text-3xl font-bold text-orange-700">{teamBWords.length} pts</p>
           </div>
@@ -614,9 +644,9 @@ export default function HomePage() {
                       size="lg"
                       variant="outline"
                       onClick={() => dispatch({ type: "SKIP_WORD" })}
-                      className="gap-2 flex-1"
+                      className="gap-2 flex-1 text-black"
                     >
-                      <SkipForward className="w-5 h-5" />
+                      <SkipForward className="w-5 h-5 text-black" />
                       Passer
                     </Button>
                   </>
